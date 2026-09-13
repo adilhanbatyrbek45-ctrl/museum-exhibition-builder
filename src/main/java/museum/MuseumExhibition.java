@@ -12,26 +12,16 @@ public class MuseumExhibition {
     private final boolean virtualReality;
     private final String curator;
 
-    public MuseumExhibition(
-            String name,
-            String theme,
-            String historicalPeriod,
-            int exhibitCount,
-            String hallStyle,
-            boolean audioGuide,
-            boolean interactiveZone,
-            boolean virtualReality,
-            String curator) {
-
-        this.name = name;
-        this.theme = theme;
-        this.historicalPeriod = historicalPeriod;
-        this.exhibitCount = exhibitCount;
-        this.hallStyle = hallStyle;
-        this.audioGuide = audioGuide;
-        this.interactiveZone = interactiveZone;
-        this.virtualReality = virtualReality;
-        this.curator = curator;
+    private MuseumExhibition(Builder builder) {
+        this.name = builder.name;
+        this.theme = builder.theme;
+        this.historicalPeriod = builder.historicalPeriod;
+        this.exhibitCount = builder.exhibitCount;
+        this.hallStyle = builder.hallStyle;
+        this.audioGuide = builder.audioGuide;
+        this.interactiveZone = builder.interactiveZone;
+        this.virtualReality = builder.virtualReality;
+        this.curator = builder.curator;
     }
 
     public String getName() {
@@ -83,5 +73,87 @@ public class MuseumExhibition {
                 ", virtualReality=" + virtualReality +
                 ", curator='" + curator + '\'' +
                 '}';
+    }
+
+    public static class Builder {
+
+        private String name;
+        private String theme;
+        private String historicalPeriod;
+        private int exhibitCount;
+        private String hallStyle;
+        private boolean audioGuide;
+        private boolean interactiveZone;
+        private boolean virtualReality;
+        private String curator;
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setTheme(String theme) {
+            this.theme = theme;
+            return this;
+        }
+
+        public Builder setHistoricalPeriod(String historicalPeriod) {
+            this.historicalPeriod = historicalPeriod;
+            return this;
+        }
+
+        public Builder setExhibitCount(int exhibitCount) {
+            this.exhibitCount = exhibitCount;
+            return this;
+        }
+
+        public Builder setHallStyle(String hallStyle) {
+            this.hallStyle = hallStyle;
+            return this;
+        }
+
+        public Builder setAudioGuide(boolean audioGuide) {
+            this.audioGuide = audioGuide;
+            return this;
+        }
+
+        public Builder setInteractiveZone(boolean interactiveZone) {
+            this.interactiveZone = interactiveZone;
+            return this;
+        }
+
+        public Builder setVirtualReality(boolean virtualReality) {
+            this.virtualReality = virtualReality;
+            return this;
+        }
+
+        public Builder setCurator(String curator) {
+            this.curator = curator;
+            return this;
+        }
+
+        public MuseumExhibition build() {
+            if (name == null || name.isBlank()) {
+                throw new IllegalStateException("Exhibition name is required");
+            }
+
+            if (theme == null || theme.isBlank()) {
+                throw new IllegalStateException("Exhibition theme is required");
+            }
+
+            if (historicalPeriod == null || historicalPeriod.isBlank()) {
+                throw new IllegalStateException("Historical period is required");
+            }
+
+            if (exhibitCount <= 0) {
+                throw new IllegalStateException("Exhibit count must be greater than 0");
+            }
+
+            if (hallStyle == null || hallStyle.isBlank()) {
+                throw new IllegalStateException("Hall style is required");
+            }
+
+            return new MuseumExhibition(this);
+        }
     }
 }
